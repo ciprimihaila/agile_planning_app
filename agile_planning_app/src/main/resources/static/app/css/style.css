@@ -1,0 +1,16 @@
+.inputw{
+	width: 80px;
+}
+
+.fieldsetW{
+	float: left;
+	width: 100%;
+}
+
+.tdpadding{
+	padding: 3px !important;
+}
+
+.divinput{
+	margin-bottom: 5px;
+}

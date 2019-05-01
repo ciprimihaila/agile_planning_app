@@ -1,0 +1,7 @@
+[{ "_id" : { "$oid" : "5803bbda362e1dc3938e4137" }, "label" : "Velocity", "name" : "velocity", "value" : "0.5", "index" : 0 },
+{ "_id" : { "$oid" : "5803bdc9362e1dc3938e4138" }, "label" : "Usual Day Allocation", "name" : "dayAlloc", "value" : 0.9, "index" : 1 },
+{ "_id" : { "$oid" : "5803be45362e1dc3938e413b" }, "label" : "Review Day Allocation", "name" : "dayReview", "value" : "0", "index" : 2 },
+{ "_id" : { "$oid" : "5803be7c362e1dc3938e413c" }, "label" : "Story Points per Day", "name" : "spPerDay", "value" : 10, "index" : 3 },
+{ "_id" : { "$oid" : "5803be9f362e1dc3938e413d" }, "label" : "Sprint Length", "name" : "sprintLength", "value" : "14", "index" : 4 },
+{ "_id" : { "$oid" : "5803bef8362e1dc3938e413e" }, "label" : "Developers", "name" : "devs", "value" : "dev1, dev2, dev3, test1", "index" : 5 },
+{ "_id" : { "$oid" : "58066df0609ab6c8e34d1997" }, "label" : "Sprint Number", "name" : "sprintNr", "value" : 1, "index" : 6 }]

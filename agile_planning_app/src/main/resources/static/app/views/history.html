@@ -1,0 +1,12 @@
+<div class="col-md-8 col-md-offset-0">
+		<div class="form-group" ng-class="{ 'has-error': form.sprintnr.$dirty && form.sprintnr.$error.required }">
+			<label for="sprintnr">Sprint Number: </label>
+			<select ng-model="selectedSprint" ng-options="spr.id as spr.name for spr in sprints" ng-change="sprintSelectChanged()">
+     			 <option value="">--Choose Sprint Number--</option>
+   	 		</select>
+			<span ng-show="form.sprintnr.$dirty && form.sprintnr.$error.required" class="help-block">Enter story points separated by comma</span>
+		</div>
+</div>
+<fieldset ng-disabled="true" class="fieldsetW">
+	<div ng-include="'app/views/planning.html'" ng-show="visibility.planning"></div>
+</fieldset>

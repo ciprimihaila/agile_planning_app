@@ -1,0 +1,114 @@
+<div class="container-fluid">
+	<div class="col-md-10 col-md-offset-0">
+		 <div class="form-inline">
+			<div class="form-group" ng-class="{ 'has-error': form.sprintnr.$dirty && form.sprintnr.$error.required }">
+			     <label for="sprintnr">Sprint Number</label>
+			     <input type="text" name="sprintnr" id="sprintnr" class="form-control" ng-model="plng.sprintnr" 
+			     required/>
+			     <span ng-show="form.sprintnr.$dirty && form.sprintnr.$error.required" class="help-block">Complete the list separated by comma</span>
+			</div>
+		    <div class="form-group" ng-class="{ 'has-error': form.sdate.$dirty && form.sdate.$error.required }">
+		            <label for="sdate">Start Date</label>
+		            <input type="date" name="sdate" id="sdate" class="form-control" ng-model="plng.sdate" 
+		            ng-change="initInputChanged()" required/>
+		            <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Enter start date</span>
+		   	</div>
+		    <div class="form-group" ng-class="{ 'has-error': form.edate.$dirty && form.edate.$error.required }">
+		            <label for="edate">End Date</label>
+		            <input type="date" name="sdate" id="edate" class="form-control" ng-model="plng.edate"
+					ng-change="initInputChanged()" required/>
+		            <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Enter end date</span>
+		    </div>
+	 	</div>
+	   
+		   <div class="form-group" ng-class="{ 'has-error': form.devs.$dirty && form.devs.$error.required }">
+		       <label for="devs">Developers</label>
+		       <input type="text" name="devs" id="devs" class="form-control" 
+		       ng-change="initInputChanged()" ng-model="plng.devs" required/>
+		       <span ng-show="form.devs.$dirty && form.devs.$error.required" class="help-block">Complete the list separated by comma</span>
+		   </div>
+		<button ng-click="getInitialTableAllocation()" ng-show="!visibility.showAllocationTable">Init Table</button>  
+	   <div ng-show="visibility.showAllocationTable">
+		   <table class="table">
+		   		<thead class="thead-inverse">
+		            <tr>
+		                <th ng-repeat="column in plng.cols">{{column}}</th>
+		            </tr>
+		        </thead>
+		            <tr ng-repeat="row in plng.rows">
+		                <td ng-repeat="column in plng.cols" class="tdpadding">
+		                	<div ng-if="$index == 0 || $index == 2">{{row[$index]}}</div>
+		                    <div ng-if="$index == 1">{{row[$index] | date: "dd-MM-yyyy"}}</div>
+		                    <div ng-if="$index == 3">
+		                    	<select ng-model="dayDefaultSelected" ng-change="setDayDefault(dayDefaultSelected, row)">
+									<option ng-repeat="x in range(0, 0.9, 0.1)">{{x}}</option>
+								</select>
+		                    </div>
+		                    <div ng-if="$index > 3" class="divinput form-group has-error" ng-form name="myform"
+		                    ng-class="{'has-error': myform.day.$invalid}">
+		                    	<input  type="number" name="day" ng-model="row[$index]" class ="inputw" ng-change="computeAllocation()"
+		                    	min="0" max="0.9" step="0.1" ng-pattern="/^[0-9]+(\.[1-9])?$/" required/>
+		                    	 <span ng-show="myform.day.$invalid" class="help-block">Incorect!</span>
+		                    </div>
+		                </td>
+		            </tr>
+		   </table>
+		   
+		 
+	   </div>
+	       
+	</div>
+	<div class="col-md-2 col-md-offset-0">
+		<div class="form-group" ng-class="{ 'has-error': form.velocity.$dirty && form.velocity.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="velocity">Velocity</label>
+			     <input type="text" name="velocity" id="velocity" class="form-control" ng-model="plng.velocity" 
+			     required  ng-change="computeAllocation()"/>
+			     <span ng-show="form.velocity.$dirty && form.velocity.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		
+		<div class="form-group" ng-class="{ 'has-error': form.days.$dirty && form.days.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="days">Work Days</label>
+			     <input type="text" name="days" id="days" class="form-control" ng-model="plng.wdays" disabled/>
+			     <span ng-show="form.days.$dirty && form.days.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': form.spoints.$dirty && form.spoints.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="spoints">Story Points</label>
+			     <input type="text" name="spoints" id="spoints" class="form-control" ng-model="plng.spoints" disabled/>
+			     <span ng-show="form.spoints.$dirty && form.spoints.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': form.spadded.$dirty && form.spadded.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="spadded">Story Values Added</label>
+			     <input type="text" name="spadded" id="spadded" class="form-control" ng-model="plng.spadded"
+			     placeholder="Completati lista cu virgula" ng-change="computeStoryPoints()"/>
+			     <span ng-show="form.spoints.$dirty && form.spoints.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': form.spconsumed.$dirty && form.spconsumed.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="spconsumed">Story Points Consumed</label>
+			     <input type="text" name="spconsumed" id="spconsumed" class="form-control" ng-model="plng.spconsumed" disabled/>
+			     <span ng-show="form.spconsumed.$dirty && form.spconsumed.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error': form.spremain.$dirty && form.spremain.$error.required }" 
+		ng-show="visibility.showAllocationTable">
+			     <label for="spremain">Remaining Story Points</label>
+			     <input type="number" name="spremain" id="spremain" class="form-control" ng-model="plng.spremain" class=".success" disabled/>
+			     <span ng-show="form.spremain.$dirty && form.spremain.$error.required" class="help-block">
+			     Complete the list separated by comma</span>
+		</div>
+		<div id="messages" ng-class="msg.msgclass" ng-show="visibility.showAllocationTable">
+			<p><strong>{{ msg.status }}</strong></p>
+		</div> 
+		
+		<!--  <button ng-click="computeAllocation()" ng-show="visibility.showAllocationTable">Compute Allocation</button>-->
+		<button ng-click="save()" ng-show="visibility.showAllocationTable">Save</button>
+	</div>
+</div>

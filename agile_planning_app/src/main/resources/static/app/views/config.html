@@ -1,0 +1,15 @@
+<div class="col-md-5 col-md-offset-0">
+	<div class="form-group" ng-repeat="constant in constants" ng-if="$index <= constants.length / 2 ">
+	    <label for="constant.name">{{ constant.label }}</label>
+	    <input type="text" class="form-control" name="constant.name" ng-model="constant.value" required>
+	    <p class="help-block" ng-show="userForm.constant.name.$invalid">Invalid input</p>
+	</div>
+	<button ng-click="saveConfig()">Save</button>
+</div>
+<div class="col-md-5 col-md-offset-0">
+	<div class="form-group" ng-repeat="constant in constants" ng-if="$index > constants.length / 2">
+	    <label for="constant.name">{{ constant.label }}</label>
+	    <input type="text" class="form-control" name="constant.name" ng-model="constant.value" required>
+	    <p class="help-block" ng-show="userForm.constant.name.$invalid">Invalid input</p>
+	</div>
+</div>
